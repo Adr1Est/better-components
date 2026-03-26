@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+:root{
+  --background: #0F172A; 
+  --bc-primary: #6366F1;
+  --bc-secondary: #A855F7;
+  --bc-blue: #06B6D4;
+  --text-primary: #E1E0FF;
+}
+
+@theme inline{
+  --color-background: var(--background);
+  --color-bc-primary: var(--bc-primary);
+  --color-bc-secondary: var(--bc-secondary);
+  --color-bc-blue: var(--bc-blue);
+  --color-text-primary: var(--text-primary);
+}
+
+@layer base {
+  body{
+    @apply bg-background text-text-primary;
+  }
+}
