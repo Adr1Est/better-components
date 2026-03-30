@@ -34,7 +34,7 @@ export default function LoginPage(){
     try {
       const data = await login({ email: formData.email, password: formData.password });
       setAccessToken(data.accessToken);
-      alert(data.msg);
+      console.log(data.msg);
       navigate("/test");
     } catch (error) {
       if(axios.isAxiosError(error)){
