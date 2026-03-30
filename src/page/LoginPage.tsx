@@ -17,6 +17,7 @@ export default function LoginPage(){
   const passwordInputId = useId();
   const navigate = useNavigate();
   const setAccessToken = useLogInInfo((state) => state.setAccessToken);
+  const setUserId = useLogInInfo((state) => state.setUserId);
 
   const handleClick = async () => {
     if(hasEmptyFields(formData)){
@@ -34,6 +35,7 @@ export default function LoginPage(){
     try {
       const data = await login({ email: formData.email, password: formData.password });
       setAccessToken(data.accessToken);
+      setUserId(data.id);
       console.log(data.msg);
       navigate("/chat");
     } catch (error) {
