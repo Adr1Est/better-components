@@ -5,6 +5,7 @@ import CustomInput from "@/components/Login/CustomInput";
 import { useId, useState } from "react";
 import CustomButton from "@/components/shared/CustomButton";
 import { useNavigate } from "react-router";
+import { hasEmptyFields, isValidEmail, isValidPassword, isValidUsername } from "@/utils/validations";
 
 export default function SignUpPage(){
   const [formData, setFormData] = useState({
@@ -19,22 +20,22 @@ export default function SignUpPage(){
   const navigate = useNavigate();
 
   const handleClick = async () => {
-    if(!formData.email || !formData.username || !formData.password){
+    if(hasEmptyFields(formData)){
       return alert("Rellena todos los campos");
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
+    if(!isValidEmail(formData.email)){
       return alert("El email no es válido");
     }
 
-    if (formData.username.length < 3) {
+    if(!isValidUsername(formData.username)){
       return alert("El nombre de usuario debe tener al menos 3 caracteres");
     }
 
-    if (formData.password.length < 6) {
+    if(!isValidPassword(formData.password)){
       return alert("La contraseña debe tener al menos 6 caracteres");
     }
+    
 
     console.log(formData);
   }
