@@ -4,6 +4,9 @@ import { hasEmptyFields, isValidEmail, isValidPassword } from "@/utils/validatio
 import { Sparkles } from "lucide-react";
 import { useId, useState } from "react";
 import { useNavigate } from "react-router";
+import { login } from "@/services/auth";
+import axios from "axios";
+import { useAccessToken } from "@/store";
 
 export default function LoginPage(){
   const [formData, setFormData] = useState({
@@ -13,6 +16,7 @@ export default function LoginPage(){
   const emailInputId = useId();
   const passwordInputId = useId();
   const navigate = useNavigate();
+  const setAccessToken = useAccessToken((state) => state.setAccessToken);
 
   const handleClick = async () => {
     if(hasEmptyFields(formData)){
@@ -27,7 +31,16 @@ export default function LoginPage(){
       return alert("La contraseña debe tener al menos 6 caracteres");
     }
 
-    console.log(formData);
+    try {
+      const data = await login({ email: formData.email, password: formData.password });
+      setAccessToken(data.accessToken);
+      alert(data.msg);
+      navigate("/test");
+    } catch (error) {
+      if(axios.isAxiosError(error)){
+        alert(error.response?.data.msg);
+      }
+    }
   }
 
   return (
