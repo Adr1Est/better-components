@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router";
 
 export default function ProtectedRoute() {
+  const token = useAccessToken((state) => state.accessToken);
   const setToken = useAccessToken((state) => state.setAccessToken);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
@@ -11,6 +12,12 @@ export default function ProtectedRoute() {
   useEffect(() => {
     const refresh = async () => {
       try {
+        if(token){
+          setIsAuth(true);
+          setIsLoading(false);
+          return;
+        }
+
         const data = await refreshToken();
         setToken(data.token);
         setIsAuth(true);
