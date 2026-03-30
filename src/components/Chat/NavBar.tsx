@@ -7,6 +7,7 @@ import axios from "axios";
 import CustomText from "@/components/shared/CustomText";
 import { useUserInfo } from "@/hooks/useUserInfo";
 import { useLogInInfo } from "@/store";
+import MiniLoader from "@/components/shared/MiniLoader";
 
 export default function NavBar() {
   const links = [
@@ -44,9 +45,12 @@ export default function NavBar() {
       </Link>
       
       <div className="flex flex-row items-center gap-5">
-        <p>
-          Bienvenido <CustomText text={isLoading ? "..." : user?.user.username}/>!
-        </p>
+        {
+          isLoading 
+          ? <MiniLoader /> 
+          : <p>Bienvenido <CustomText text={user?.user.username}/>!</p>
+        }
+        
         {
           links.map(l => (
             <NavLink
