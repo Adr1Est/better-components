@@ -13,7 +13,7 @@ export default function LoginPage(){
     <div className="min-h-screen flex flex-col gap-7 justify-center items-center">
       <div className="flex items-center gap-2">
         <Sparkles size={35}/>
-        <h1 className="text-4xl font-semibold">Better Comps</h1>
+        <h1 className="text-4xl font-semibold">Better Components</h1>
       </div>
       
       <div className="bg-background2 w-110 h-100 rounded-xl p-8">
@@ -45,7 +45,7 @@ export default function LoginPage(){
         <p className="text-text-muted">No tengo cuenta: </p>
         <button 
           className="cursor-pointer font-semibold text-primary-300 hover:text-primary-500"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/signup")}
         >
           Registrarme
         </button>
