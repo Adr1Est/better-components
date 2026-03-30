@@ -1,4 +1,4 @@
-import { LogOut, User, Settings, Sparkles } from "lucide-react";
+import { LogOut, User, Settings, Sparkles, TriangleAlert } from "lucide-react";
 import NavButton from "@/components/Chat/NavButton";
 import { Link, useNavigate } from "react-router";
 import NavLink from "@/components/Chat/NavLink";
@@ -18,7 +18,7 @@ export default function NavBar() {
   const navigate = useNavigate();
 
   const userId = useLogInInfo((state) => state.userId);
-  const { data: user, isLoading } = useUserInfo(userId);
+  const { data: user, isLoading, isError } = useUserInfo(userId);
 
   const handleLogOut = async () => {
     try {
@@ -48,7 +48,9 @@ export default function NavBar() {
         {
           isLoading 
           ? <MiniLoader /> 
-          : <p>Bienvenido <CustomText text={user?.user.username}/>!</p>
+          : isError
+            ? <TriangleAlert />
+            : <p>Bienvenido <CustomText text={user?.user.username}/>!</p>
         }
         
         {
