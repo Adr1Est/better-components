@@ -6,7 +6,7 @@ import { useId, useState } from "react";
 import { useNavigate } from "react-router";
 import { login } from "@/services/auth";
 import axios from "axios";
-import { useAccessToken } from "@/store";
+import { useLogInInfo } from "@/store";
 
 export default function LoginPage(){
   const [formData, setFormData] = useState({
@@ -16,7 +16,7 @@ export default function LoginPage(){
   const emailInputId = useId();
   const passwordInputId = useId();
   const navigate = useNavigate();
-  const setAccessToken = useAccessToken((state) => state.setAccessToken);
+  const setAccessToken = useLogInInfo((state) => state.setAccessToken);
 
   const handleClick = async () => {
     if(hasEmptyFields(formData)){

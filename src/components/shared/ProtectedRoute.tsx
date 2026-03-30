@@ -1,12 +1,12 @@
 import { refreshToken } from "@/services/auth";
-import { useAccessToken } from "@/store";
+import { useLogInInfo } from "@/store";
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router";
 import FullScreenLoader from "@/components/shared/FullScreenLoader";
 
 export default function ProtectedRoute() {
-  const token = useAccessToken((state) => state.accessToken);
-  const setToken = useAccessToken((state) => state.setAccessToken);
+  const token = useLogInInfo((state) => state.accessToken);
+  const setToken = useLogInInfo((state) => state.setAccessToken);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
 

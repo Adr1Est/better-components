@@ -1,11 +1,11 @@
 import CustomButton from "@/components/shared/CustomButton";
-import { useAccessToken } from "@/store"
+import { useLogInInfo } from "@/store"
 import axios from "axios";
 import { logout } from "@/services/auth";
 import { useNavigate } from "react-router";
 
 export default function TestPage(){
-  const token = useAccessToken((state) => state.accessToken);
+  const token = useLogInInfo((state) => state.accessToken);
   const navigate = useNavigate();
 
   const handleClick = async () => {

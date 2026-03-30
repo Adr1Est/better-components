@@ -1,1 +1,1 @@
-export { useAccessToken } from "@/store/useAccessToken";
+export { useLogInInfo } from "@/store/useLogInInfo";

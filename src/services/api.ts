@@ -1,4 +1,4 @@
-import { useAccessToken } from "@/store";
+import { useLogInInfo } from "@/store";
 import axios from "axios";
 
 const api = axios.create({
@@ -10,7 +10,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const token = useAccessToken.getState().accessToken;
+  const token = useLogInInfo.getState().accessToken;
 
   if(token) {
     config.headers["Authorization"] = `Bearer ${token}`;
