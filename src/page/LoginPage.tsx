@@ -52,7 +52,7 @@ export default function LoginPage(){
         <h1 className="text-4xl font-semibold">Better Components</h1>
       </div>
       
-      <div className="bg-surface-900 w-110 h-100 rounded-xl p-8">
+      <div className="bg-surface-900 w-110 rounded-xl p-8">
         <form className="flex flex-col gap-5" onSubmit={e => e.preventDefault()}>
           <CustomInput 
             label="EMAIL" 
@@ -76,11 +76,11 @@ export default function LoginPage(){
             handleClick={handleClick}
           />
         </form>
-        <div className="flex items-center justify-center gap-1 pt-7">
+        {/* <div className="flex items-center justify-center gap-1 pt-7">
           <hr className="w-full border-surface-600"/>
           <p className="text-surface-500 font-semibold text-xs">SERVICIOS_DE_TERCEROS</p>
           <hr className="w-full border-surface-600"/>
-        </div>
+        </div> */}
       </div>
       <div className="flex gap-1 text-sm">
         <p className="text-text-muted">No tengo cuenta: </p>
