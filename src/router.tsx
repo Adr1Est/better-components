@@ -16,7 +16,7 @@ const router = createBrowserRouter([
       {
         Component: ProtectedRoute,
         children: [
-          { path: "/test", Component: TestPage },
+          // { path: "/test", Component: TestPage },
           { path: "/chat", Component: ChatPage },
         ],
       },
