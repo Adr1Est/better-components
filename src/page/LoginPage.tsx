@@ -1,13 +1,21 @@
 import CustomInput from "@/components/Login/CustomInput";
 import CustomButton from "@/components/shared/CustomButton";
 import { Sparkles } from "lucide-react";
-import { useId } from "react";
+import { useId, useState } from "react";
 import { useNavigate } from "react-router";
 
 export default function LoginPage(){
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
   const emailInputId = useId();
   const passwordInputId = useId();
   const navigate = useNavigate();
+
+  const handleClick = async () => {
+
+  }
 
   return (
     <div className="min-h-screen flex flex-col gap-7 justify-center items-center">
@@ -33,6 +41,7 @@ export default function LoginPage(){
 
           <CustomButton 
             text="INICIAR_SESIÓN"
+            handleClick={handleClick}
           />
         </form>
         <div className="flex items-center justify-center gap-1 pt-7">
