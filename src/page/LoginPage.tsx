@@ -16,7 +16,7 @@ export default function LoginPage(){
         <h1 className="text-4xl font-semibold">Better Components</h1>
       </div>
       
-      <div className="bg-background2 w-110 h-100 rounded-xl p-8">
+      <div className="bg-surface-900 w-110 h-100 rounded-xl p-8">
         <form className="flex flex-col gap-5">
           <CustomInput 
             label="EMAIL" 
