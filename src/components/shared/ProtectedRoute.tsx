@@ -2,6 +2,7 @@ import { refreshToken } from "@/services/auth";
 import { useAccessToken } from "@/store";
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router";
+import FullScreenLoader from "@/components/shared/FullScreenLoader";
 
 export default function ProtectedRoute() {
   const token = useAccessToken((state) => state.accessToken);
@@ -31,7 +32,7 @@ export default function ProtectedRoute() {
     refresh();
   }, []);
 
-  if(isLoading) return null;
+  if(isLoading) return <FullScreenLoader />;
 
   return isAuth ? <Outlet /> : <Navigate to="/" />; 
 }
