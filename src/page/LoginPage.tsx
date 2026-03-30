@@ -1,5 +1,6 @@
 import CustomInput from "@/components/Login/CustomInput";
 import CustomButton from "@/components/shared/CustomButton";
+import { hasEmptyFields, isValidEmail, isValidPassword } from "@/utils/validations";
 import { Sparkles } from "lucide-react";
 import { useId, useState } from "react";
 import { useNavigate } from "react-router";
@@ -14,7 +15,19 @@ export default function LoginPage(){
   const navigate = useNavigate();
 
   const handleClick = async () => {
+    if(hasEmptyFields(formData)){
+      return alert("Rellena todos los campos");
+    }
 
+    if(!isValidEmail(formData.email)){
+      return alert("El email no es válido");
+    }
+
+    if(!isValidPassword(formData.password)){
+      return alert("La contraseña debe tener al menos 6 caracteres");
+    }
+
+    console.log(formData);
   }
 
   return (
@@ -25,18 +38,22 @@ export default function LoginPage(){
       </div>
       
       <div className="bg-surface-900 w-110 h-100 rounded-xl p-8">
-        <form className="flex flex-col gap-5">
+        <form className="flex flex-col gap-5" onSubmit={e => e.preventDefault()}>
           <CustomInput 
             label="EMAIL" 
             type="email" 
             id={emailInputId} 
             placeholder="johndoe@email.com"
+            value={formData.email}
+            handleChange={(e) => setFormData(f => ({ ...f, email: e.target.value }))}
           />
           <CustomInput 
-            label="PASSWORD" 
+            label="CONTRASEÑA" 
             type="password" 
             id={passwordInputId} 
             placeholder="***********"
+            value={formData.password}
+            handleChange={(e) => setFormData(f => ({ ...f, password: e.target.value }))}
           />
 
           <CustomButton 
