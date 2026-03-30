@@ -6,6 +6,8 @@ import { useId, useState } from "react";
 import CustomButton from "@/components/shared/CustomButton";
 import { useNavigate } from "react-router";
 import { hasEmptyFields, isValidEmail, isValidPassword, isValidUsername } from "@/utils/validations";
+import { signup } from "@/services/auth";
+import axios from "axios";
 
 export default function SignUpPage(){
   const [formData, setFormData] = useState({
@@ -36,8 +38,16 @@ export default function SignUpPage(){
       return alert("La contraseña debe tener al menos 6 caracteres");
     }
     
-
-    console.log(formData);
+    try {
+      const data = await signup({ email: formData.email, password: formData.password, username: formData.username });
+      alert(data.msg);
+      navigate("/");
+    } catch (error) {
+      if(axios.isAxiosError(error)){
+        alert(error.response?.data.msg);
+      }
+    }
+    
   }
 
   return (

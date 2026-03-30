@@ -1,0 +1,1 @@
+export { signup } from "@/services/auth/signup.service";
