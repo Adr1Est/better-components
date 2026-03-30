@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router";
 import NavLink from "@/components/Chat/NavLink";
 import { logout } from "@/services/auth";
 import axios from "axios";
-import CustomText from "../shared/CustomText";
+import CustomText from "@/components/shared/CustomText";
 import { useUserInfo } from "@/hooks/useUserInfo";
 import { useLogInInfo } from "@/store";
 
