@@ -1,11 +1,15 @@
+import type { ChangeEvent } from "react";
+
 interface Props {
   label: string;
   type: string;
   id: string;
   placeholder: string;
+  value: string;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function CustomInput({ label, type, id, placeholder }: Props){
+export default function CustomInput({ label, type, id, placeholder, value, handleChange }: Props){
   return(
     <div className="flex flex-col">
       <label htmlFor={id} className="font-semibold text-secondary-400 text-sm">{label}</label>
@@ -14,6 +18,8 @@ export default function CustomInput({ label, type, id, placeholder }: Props){
         type={type}
         id={id} 
         placeholder={placeholder}
+        value={value}
+        onChange={handleChange}
       />
     </div>
   )

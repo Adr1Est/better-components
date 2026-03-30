@@ -2,16 +2,42 @@ import CustomText from "@/components/shared/CustomText";
 import { Sparkles } from "lucide-react";
 import geminiLogo from "/gemini-color.svg";
 import CustomInput from "@/components/Login/CustomInput";
-import { useId } from "react";
+import { useId, useState } from "react";
 import CustomButton from "@/components/shared/CustomButton";
 import { useNavigate } from "react-router";
 
 export default function SignUpPage(){
+  const [formData, setFormData] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
   const emailInputId = useId();
   const usernameInputId = useId();
   const passwordInputId = useId();
 
   const navigate = useNavigate();
+
+  const handleClick = async () => {
+    if(!formData.email || !formData.username || !formData.password){
+      return alert("Rellena todos los campos");
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      return alert("El email no es válido");
+    }
+
+    if (formData.username.length < 3) {
+      return alert("El nombre de usuario debe tener al menos 3 caracteres");
+    }
+
+    if (formData.password.length < 6) {
+      return alert("La contraseña debe tener al menos 6 caracteres");
+    }
+
+    console.log(formData);
+  }
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row gap-7 justify-center items-center">
@@ -36,20 +62,29 @@ export default function SignUpPage(){
             type="email"
             id={emailInputId}
             placeholder="johndoe@email.com"
+            value={formData.email}
+            handleChange={(e) => setFormData((f) => ({ ...f, email: e.target.value }))}
           />
           <CustomInput
             label="Nombre de usuario"
             type="text"
             id={usernameInputId}
             placeholder="john123"
+            value={formData.username}
+            handleChange={(e) => setFormData((f) => ({ ...f, username: e.target.value }))}
           />
           <CustomInput
             label="Contraseña"
             type="password"
             id={passwordInputId}
             placeholder="*********"
+            value={formData.password}
+            handleChange={(e) => setFormData((f) => ({ ...f, password: e.target.value }))}
           />
-          <CustomButton text="Registrarme"/>
+          <CustomButton 
+            text="Registrarme"
+            handleClick={handleClick}
+          />
         </form>
         <div className="flex gap-1 text-sm w-full justify-center mt-3">
           <p className="text-text-muted">Ya tengo cuenta: </p>
