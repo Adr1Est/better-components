@@ -5,6 +5,8 @@ import NavLink from "@/components/Chat/NavLink";
 import { logout } from "@/services/auth";
 import axios from "axios";
 import CustomText from "../shared/CustomText";
+import { useUserInfo } from "@/hooks/useUserInfo";
+import { useLogInInfo } from "@/store";
 
 export default function NavBar() {
   const links = [
@@ -13,6 +15,9 @@ export default function NavBar() {
   ];
 
   const navigate = useNavigate();
+
+  const userId = useLogInInfo((state) => state.userId);
+  const { data: user, isLoading } = useUserInfo(userId);
 
   const handleLogOut = async () => {
     try {
@@ -40,7 +45,7 @@ export default function NavBar() {
       
       <div className="flex flex-row items-center gap-5">
         <p>
-          Bienvenido <CustomText text={"username"}/>!
+          Bienvenido <CustomText text={isLoading ? "..." : user?.user.username}/>!
         </p>
         {
           links.map(l => (

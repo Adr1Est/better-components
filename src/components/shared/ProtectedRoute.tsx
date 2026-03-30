@@ -7,6 +7,7 @@ import FullScreenLoader from "@/components/shared/FullScreenLoader";
 export default function ProtectedRoute() {
   const token = useLogInInfo((state) => state.accessToken);
   const setToken = useLogInInfo((state) => state.setAccessToken);
+  const setUserId = useLogInInfo((state) => state.setUserId);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
 
@@ -21,6 +22,7 @@ export default function ProtectedRoute() {
 
         const data = await refreshToken();
         setToken(data.token);
+        setUserId(data.id);
         setIsAuth(true);
       } catch (error) {
         setIsAuth(false);
