@@ -3,7 +3,6 @@ import App from "@/App";
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import LoginPage from "@/page/LoginPage";
 import SignUpPage from "@/page/SignUpPage";
-import TestPage from "@/page/TestPage";
 import ChatPage from "@/page/ChatPage";
 
 const router = createBrowserRouter([
@@ -16,7 +15,6 @@ const router = createBrowserRouter([
       {
         Component: ProtectedRoute,
         children: [
-          // { path: "/test", Component: TestPage },
           { path: "/chat", Component: ChatPage },
         ],
       },
