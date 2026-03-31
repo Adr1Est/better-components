@@ -1,6 +1,7 @@
 import { useDeleteChat } from "@/hooks/useConversation";
 import dayjs from "@/utils/dayjs";
 import { Pencil, Trash } from "lucide-react";
+import { Link } from "react-router";
 
 interface Props {
   id: string;
@@ -20,7 +21,10 @@ export default function ChatCard({ id, title, createdAt }: Props) {
   }
 
   return (
-    <div className="flex flex-row gap-3 justify-center border border-tertiary-700 bg-surface-900 hover:bg-surface-600 rounded-xl p-3 w-80 md:w-100 h-40 transition-colors duration-500">
+    <Link 
+      className="flex flex-row gap-3 justify-center border border-tertiary-700 bg-surface-900 hover:bg-surface-600 rounded-xl p-3 w-80 md:w-100 h-40 transition-colors duration-500"
+      to={`/chat/${id}`}
+    >
       <h2 className="text-xl font-bold w-1/2">{title}</h2>
       <div className="flex flex-col w-1/2 h-full justify-end items-end">
         <div className="flex flex-row gap-1">
@@ -39,6 +43,6 @@ export default function ChatCard({ id, title, createdAt }: Props) {
         </div>
         <p className="opacity-50 text-sm">{dayjs(createdAt).fromNow()}</p>
       </div>
-    </div>
+    </Link>
   )
 }
