@@ -4,6 +4,7 @@ import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import LoginPage from "@/page/LoginPage";
 import SignUpPage from "@/page/SignUpPage";
 import ChatPage from "@/page/ChatPage";
+import ChatList from "@/components/Chat/ChatList";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,11 @@ const router = createBrowserRouter([
       {
         Component: ProtectedRoute,
         children: [
-          { path: "/chat", Component: ChatPage },
+          { path: "/chat", 
+            Component: ChatPage, 
+            children: [
+              { index: true, Component: ChatList },
+            ]},
         ],
       },
     ],
