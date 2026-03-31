@@ -25,13 +25,13 @@ export default function ChatCard({ id, title, createdAt }: Props) {
       <div className="flex flex-col w-1/2 h-full justify-end items-end">
         <div className="flex flex-row gap-1">
           <button 
-            className="w-20 flex items-center justify-center p-3 bg-secondary-800 hover:bg-secondary-700 rounded-xl group transition-colors duration-500"
+            className="w-20 flex items-center justify-center p-3 bg-surface-950 hover:bg-secondary-900 rounded-xl group transition-colors duration-500"
             onClick={handleEdit}
           >
             <Pencil className="group-hover:scale-115 transition-transform" />
           </button>
           <button 
-            className="w-20 flex items-center justify-center p-3 bg-red-800 hover:bg-red-700 rounded-xl group transition-colors duration-500"
+            className="w-20 flex items-center justify-center p-3 bg-surface-950 hover:bg-red-900 rounded-xl group transition-colors duration-500"
             onClick={handleDelete}
           >
             <Trash className="group-hover:scale-115 transition-transform" />
