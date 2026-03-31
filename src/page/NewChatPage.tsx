@@ -1,16 +1,22 @@
 import CustomInput from "@/components/Login/CustomInput";
 import CustomButton from "@/components/shared/CustomButton";
+import { useCreateChat } from "@/hooks/useConversation";
+import { useLogInInfo } from "@/store";
 import { useId, useState } from "react";
 import { useNavigate } from "react-router";
 
 export default function NewChatPage() {
   const [title, setTitle] = useState("");
   const titleInputId = useId();
+  const userId = useLogInInfo((state) => state.userId);
 
   const navigate = useNavigate();
+  const { mutate: createChat } = useCreateChat();
 
-  const handleClick = async () => {
-    console.log(title);
+  const handleClick = () => {
+    if(!title || !userId) return;
+    createChat({userId, title});
+    setTitle("");
     navigate("/chat");
   }
 

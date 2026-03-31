@@ -9,7 +9,7 @@ export const useChats = (userId: string) => {
   });
 }
 
-export const useCreateChats = () => {
+export const useCreateChat = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
