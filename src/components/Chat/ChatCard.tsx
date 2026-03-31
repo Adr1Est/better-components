@@ -1,4 +1,5 @@
 import { useDeleteChat } from "@/hooks/useConversation";
+import dayjs from "@/utils/dayjs";
 import { Pencil, Trash } from "lucide-react";
 
 interface Props {
@@ -36,7 +37,7 @@ export default function ChatCard({ id, title, createdAt }: Props) {
             <Trash className="group-hover:scale-115 transition-transform" />
           </button>
         </div>
-        <p className="opacity-50 text-sm">Creado: {createdAt}</p>
+        <p className="opacity-50 text-sm">{dayjs(createdAt).fromNow()}</p>
       </div>
     </div>
   )
