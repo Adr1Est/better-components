@@ -5,6 +5,7 @@ import LoginPage from "@/page/LoginPage";
 import SignUpPage from "@/page/SignUpPage";
 import ChatPage from "@/page/ChatPage";
 import ChatList from "@/components/Chat/ChatList";
+import NewChatPage from "@/page/NewChatPage";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
             Component: ChatPage, 
             children: [
               { index: true, Component: ChatList },
+              { path: "new", Component: NewChatPage },
             ]},
         ],
       },
