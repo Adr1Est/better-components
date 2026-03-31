@@ -1,3 +1,4 @@
+import { useDeleteChat } from "@/hooks/useConversation";
 import { Pencil, Trash } from "lucide-react";
 
 interface Props {
@@ -7,12 +8,14 @@ interface Props {
 }
 
 export default function ChatCard({ id, title, createdAt }: Props) {
+  const { mutate: deleteChat } = useDeleteChat();
+
   const handleEdit = async () => {
     console.log(id);
   }
 
-  const handleDelete = async () => {
-    console.log(id);
+  const handleDelete = () => {
+    deleteChat(id);
   }
 
   return (
@@ -35,7 +38,6 @@ export default function ChatCard({ id, title, createdAt }: Props) {
         </div>
         <p className="opacity-50 text-sm">Creado: {createdAt}</p>
       </div>
-      
     </div>
   )
 }

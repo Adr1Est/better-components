@@ -9,3 +9,8 @@ export const getChats = async (id: string) => {
   const response = await api.get(`/conversation/${id}`);
   return response.data;
 }
+
+export const deleteChat = async (id: string) => {
+  const response = await api.delete(`/conversation/${id}`);
+  return response.data;
+}

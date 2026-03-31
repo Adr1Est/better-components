@@ -17,7 +17,7 @@ export default function ChatList() {
   }
 
   return (
-    <main className="w-full flex-1 flex flex-wrap justify-center gap-3 p-3">
+    <main className="w-full flex-1 flex flex-wrap justify-center content-start gap-3 p-3">
       <div className="w-full h-11 flex items-center justify-center mb-1">
         <Link 
           className="flex items-center justify-center gap-3 w-30 h-10 bg-surface-900 rounded-xl hover:bg-surface-600 transition-colors duration-500"
