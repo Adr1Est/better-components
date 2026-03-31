@@ -1,13 +1,24 @@
 import ChatCard from "@/components/Chat/ChatCard";
-import { mockChats } from "@/utils/mockData";
+import { useChats } from "@/hooks/useConversation";
+import { useLogInInfo } from "@/store";
 import { Plus } from "lucide-react";
 import { Link } from "react-router";
+import FullScreenLoader from "@/components/shared/FullScreenLoader";
+import type { Chat } from "@/types/conversation.type";
 
 export default function ChatList() {
+  const userId = useLogInInfo((state) => state.userId);
+  const { data: chatList, isLoading } = useChats(userId);
+
+  if(isLoading){
+    return (
+      <FullScreenLoader />
+    )
+  }
 
   return (
     <main className="w-full flex-1 flex flex-wrap justify-center gap-3 p-3">
-      <div className="w-full flex items-center justify-center mb-1">
+      <div className="w-full h-11 flex items-center justify-center mb-1">
         <Link 
           className="flex items-center justify-center gap-3 w-30 h-10 bg-surface-900 rounded-xl hover:bg-surface-600 transition-colors duration-500"
           to="/chat/new"
@@ -17,12 +28,12 @@ export default function ChatList() {
         </Link>
       </div>
       {
-        mockChats.map(c => (
+        chatList.conversations.map((chat: Chat) => (
           <ChatCard
-            key={c.id}
-            id={c.id}
-            title={c.title}
-            createdAt={c.createdAt}
+            key={chat.id}
+            id={chat.id}
+            title={chat.title}
+            createdAt={chat.createdAt}
           />
         ))
       }
