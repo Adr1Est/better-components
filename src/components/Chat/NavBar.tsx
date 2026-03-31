@@ -33,7 +33,7 @@ export default function NavBar() {
   }
 
   return (
-    <nav className="sticky top-1 w-full bg-surface-900 rounded-xl p-3 h-15 flex items-center justify-between">
+    <nav className="sticky top-1 w-full bg-surface-800 rounded-xl p-3 h-15 flex items-center justify-between">
       <Link 
         className="flex flex-row gap-1 items-center group"
         to={"/chat"}
