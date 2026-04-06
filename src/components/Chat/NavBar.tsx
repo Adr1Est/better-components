@@ -25,14 +25,15 @@ export default function NavBar() {
   const handleLogOut = async () => {
     try {
       const data = await logout();
-      deleteUserId();
-      deleteAccessToken();
       console.log(data.msg);
-      navigate("/");
     } catch (error) {
       if(axios.isAxiosError(error)){
         console.log(error.response?.data.msg);
       }
+    }finally {
+      deleteUserId();
+      deleteAccessToken();
+      navigate("/");
     }
   }
 
