@@ -18,11 +18,15 @@ export default function NavBar() {
   const navigate = useNavigate();
 
   const userId = useLogInInfo((state) => state.userId);
+  const deleteUserId = useLogInInfo((state) => state.deleteUserId);
+  const deleteAccessToken = useLogInInfo((state) => state.deleteAccessToken);
   const { data: user, isLoading, isError } = useUserInfo(userId);
 
   const handleLogOut = async () => {
     try {
       const data = await logout();
+      deleteUserId();
+      deleteAccessToken();
       console.log(data.msg);
       navigate("/");
     } catch (error) {

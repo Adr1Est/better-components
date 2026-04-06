@@ -13,7 +13,7 @@ export const useLogInInfo = create<LogInInfoStore>((set) => ({
   accessToken: "",
   userId: "",
   setAccessToken: (token: string | undefined) => set(() => ({ accessToken: token })),
-  deleteAccessToken: () => set(() => ({ accessToken: "" })),
+  deleteAccessToken: () => set(() => ({ accessToken: undefined })),
   setUserId: (id: string) => set(() => ({ userId: id })),
   deleteUserId: () => set(() => ({ userId: "" })),
 }));
