@@ -1,5 +1,5 @@
 import { Eye, EyeClosed } from "lucide-react";
-import { useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent, type MouseEvent } from "react";
 
 interface Props {
   label: string;
@@ -8,9 +8,10 @@ interface Props {
   placeholder: string;
   value: string;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onClick?: (e: MouseEvent<HTMLInputElement>) => void;
 }
 
-export default function CustomInput({ label, type, id, placeholder, value, handleChange }: Props){
+export default function CustomInput({ label, type, id, placeholder, value, handleChange, onClick }: Props){
   const [passState, setPassState] = useState("password");
 
   return(
@@ -24,6 +25,7 @@ export default function CustomInput({ label, type, id, placeholder, value, handl
           placeholder={placeholder}
           value={value}
           onChange={handleChange}
+          onClick={onClick}
         />
         {
           type === "password"
