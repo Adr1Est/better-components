@@ -7,6 +7,7 @@ import SignUpPage from "@/page/SignUpPage";
 import ChatPage from "@/page/ChatPage";
 import NewChatPage from "@/page/NewChatPage";
 import ChatDetailPage from "@/page/ChatDetailPage";
+import NotFoundPage from "@/page/NotFoundPage";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
             ]},
         ],
       },
+      { path: "*", Component: NotFoundPage },
     ],
   },
 ]);
