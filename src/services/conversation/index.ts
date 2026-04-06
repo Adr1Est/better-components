@@ -14,3 +14,8 @@ export const deleteChat = async (id: string) => {
   const response = await api.delete(`/conversation/${id}`);
   return response.data;
 }
+
+export const changeChatTitle = async (id: string, title: string) => {
+  const response = await api.put(`/conversation/${id}`, { title });
+  return response.data;
+}
