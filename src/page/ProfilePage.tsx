@@ -14,12 +14,12 @@ export default function ProfilePage() {
     <main className="w-full flex-1 flex justify-center items-start">
       <div className="w-full md:w-200 items-center flex flex-col gap-2 mt-3">
         <div className="w-full flex flex-col md:flex-row gap-2">
-          <CustomTextField label="EMAIL" email={data.user.email} />
-          <CustomTextField label="NOMBRE_DE_USUARIO" email={data.user.username} />
+          <CustomTextField label="EMAIL" data={data.user.email} />
+          <CustomTextField label="NOMBRE_DE_USUARIO" data={data.user.username} />
         </div>
         {
           data.user.apiKey
-            ? <CustomTextField label="API_KEY" email={data.user.apiKey} />
+            ? <CustomTextField label="API_KEY" data={data.user.apiKey} />
             : (
                 <Link
                   to={"/dashboard/settings"}
