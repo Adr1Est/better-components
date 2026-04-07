@@ -6,9 +6,10 @@ interface Props {
   disabled?: boolean;
   type?: "text" | "password" | "email";
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
 }
 
-export default function CustomTextField({ label, data, disabled, type, handleChange }: Props) {
+export default function CustomTextField({ label, data, disabled, type, handleChange, placeholder }: Props) {
   return (
     <div className="flex flex-col gap-1 w-full bg-surface-900 p-2 rounded-xl">
       <p className="text-secondary-400 font-semibold text-sm">{label}</p>
@@ -18,6 +19,7 @@ export default function CustomTextField({ label, data, disabled, type, handleCha
         disabled={disabled}
         type={type}
         onChange={handleChange}
+        placeholder={placeholder}
       />
     </div>
   )

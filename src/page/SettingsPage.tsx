@@ -1,6 +1,7 @@
 import CustomTextField from "@/components/shared/CustomTextField";
 import FullScreenLoader from "@/components/shared/FullScreenLoader";
-import { useUserInfo } from "@/hooks/useUserInfo";
+import MiniLoader from "@/components/shared/MiniLoader";
+import { useSaveApiKey, useUserInfo } from "@/hooks/useUserInfo";
 import { useLogInInfo } from "@/store";
 import { Eye, EyeClosed, Pencil, Trash } from "lucide-react";
 import { useState } from "react";
@@ -10,6 +11,7 @@ export default function SettingsPage() {
   const [isDisabled, setIsDisabled] = useState(true);
   const userId = useLogInInfo((state) => state.userId);
   const { data, isLoading, isError } = useUserInfo(userId);
+  const { mutate: saveApiKey, isPending } = useSaveApiKey();
   const [formValue, setFormValue] = useState<string  | undefined>(undefined);
 
   if(isLoading || isError) return <FullScreenLoader />;
@@ -23,10 +25,21 @@ export default function SettingsPage() {
       setTogglePassword("text");
       return;
     }
-
-    console.log(formValue);
+    if (formValue === undefined || formValue === apiKey) {
+      setIsDisabled(true);
+      return;
+    }
+    saveApiKey({id: userId, apiKey: formValue!});
     setIsDisabled(true);
     setFormValue(undefined);
+  }
+
+  const handleDelete = () => {
+    if(!apiKey) return;
+
+    saveApiKey({ id: userId, apiKey: "" });
+    setFormValue(undefined);
+    setIsDisabled(true);
   }
 
   return (
@@ -34,25 +47,32 @@ export default function SettingsPage() {
       <div className="relative w-full md:w-1/2">
         <CustomTextField 
           label="API_KEY" 
-          data={value || "Define una Api Key de Gemini"} 
+          data={value} 
           type={togglePassword} 
           disabled={isDisabled} 
           handleChange={(e) => setFormValue(e.target.value)}
+          placeholder="Define una Api Key de Gemini"
         />
         <div className="absolute right-2 top-8">
           <button 
             className="bg-surface-950 hover:bg-primary-900 p-2" 
             onClick={() => setTogglePassword(t => t === "password" ? "text" : "password")}
+            disabled={isPending}
           >
             {togglePassword === "text" ? <Eye /> : <EyeClosed />}
           </button>
           <button 
             className="bg-surface-950 hover:bg-secondary-900 p-2"
             onClick={handleEdit}
+            disabled={isPending}
           >
-            <Pencil />
+            {isPending ? <MiniLoader /> : <Pencil />}
           </button>
-          <button className="rounded-r-xl bg-surface-950 hover:bg-red-900 p-2">
+          <button 
+            className="rounded-r-xl bg-surface-950 hover:bg-red-900 p-2"
+            onClick={handleDelete}
+            disabled={isPending}
+          >
             <Trash />
           </button>
         </div>
