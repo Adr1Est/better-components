@@ -9,6 +9,7 @@ import NewChatPage from "@/page/NewChatPage";
 import ChatDetailPage from "@/page/ChatDetailPage";
 import NotFoundPage from "@/page/NotFoundPage";
 import ProfilePage from "@/page/ProfilePage";
+import SettingsPage from "@/page/SettingsPage";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
               { path: "chat/:id", Component: ChatDetailPage },
               { path: "chat/new", Component: NewChatPage },
               { path: "profile", Component: ProfilePage },
+              { path: "settings", Component: SettingsPage },
             ]
           },
         ],
