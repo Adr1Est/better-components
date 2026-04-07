@@ -11,8 +11,8 @@ import MiniLoader from "@/components/shared/MiniLoader";
 
 export default function NavBar() {
   const links = [
-    { id: "link01", url: "/profile", icon: User, label: "Perfil", },
-    { id: "link02", url: "/settings", icon: Settings, label: "Ajustes", },
+    { id: "link01", url: "/dashboard/profile", icon: User, label: "Perfil", },
+    { id: "link02", url: "/dashboard/settings", icon: Settings, label: "Ajustes", },
   ];
 
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ export default function NavBar() {
     <nav className="sticky top-1 w-full bg-surface-800 rounded-xl p-3 h-15 flex items-center justify-between">
       <Link 
         className="flex flex-row gap-1 items-center group"
-        to={"/chat"}
+        to={"/dashboard"}
       >
         <Sparkles size={25} className="group-hover:text-secondary-200 transition-colors duration-200"/>
         <h1 className="text-xl font-semibold group-hover:text-secondary-400 transition-colors duration-200">

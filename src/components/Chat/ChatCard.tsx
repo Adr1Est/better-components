@@ -47,7 +47,7 @@ export default function ChatCard({ id, title, createdAt }: Props) {
     <>
       <Link 
         className="flex flex-row gap-3 justify-center border border-tertiary-700 bg-surface-900 hover:bg-surface-600 rounded-xl p-3 w-80 md:w-100 h-40 transition-colors duration-500"
-        to={`/chat/${id}`}
+        to={`/dashboard/chat/${id}`}
       >
         {
           isEditable 

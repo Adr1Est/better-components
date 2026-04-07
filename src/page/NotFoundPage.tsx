@@ -15,7 +15,7 @@ export default function NotFoundPage() {
         <h1 className="font-semibold text-2xl">Página no encontrada!</h1>
 
         <Link 
-          to="/chat"
+          to="/dashboard"
           className="w-full flex items-center justify-center font-semibold text-sm bg-tertiary-800 hover:bg-amber-200 text-text-primary hover:text-amber-950 rounded-xl p-2"
         >
           VOLVER

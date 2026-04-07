@@ -21,17 +21,15 @@ const router = createBrowserRouter([
         Component: ProtectedRoute,
         children: [
           { 
-            path: "/chat", 
+            path: "/dashboard", 
             Component: ChatPage, 
             children: [
               { index: true, Component: ChatList },
-              { path: ":id", Component: ChatDetailPage },
-              { path: "new", Component: NewChatPage },
+              { path: "chat/:id", Component: ChatDetailPage },
+              { path: "chat/new", Component: NewChatPage },
+              { path: "profile", Component: ProfilePage },
             ]
           },
-          {
-            path: "/profile", Component: ProfilePage,
-          }
         ],
       },
       { path: "*", Component: NotFoundPage },

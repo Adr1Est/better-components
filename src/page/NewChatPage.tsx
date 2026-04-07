@@ -17,7 +17,7 @@ export default function NewChatPage() {
     if(!title || !userId) return;
     createChat({userId, title});
     setTitle("");
-    navigate("/chat");
+    navigate("/dashboard");
   }
 
   return (

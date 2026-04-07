@@ -21,7 +21,7 @@ export default function ChatList() {
       <div className="w-full h-11 flex items-center justify-center mb-1">
         <Link 
           className="flex items-center justify-center gap-3 w-30 h-10 bg-surface-900 rounded-xl hover:bg-surface-600 transition-colors duration-500"
-          to="/chat/new"
+          to="/dashboard/chat/new"
         >
           <p className="text-sm font-semibold">Nuevo chat</p>
           <Plus size={20}/>

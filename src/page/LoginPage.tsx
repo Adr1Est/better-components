@@ -37,7 +37,7 @@ export default function LoginPage(){
       setAccessToken(data.accessToken);
       setUserId(data.id);
       console.log(data.msg);
-      navigate("/chat");
+      navigate("/dashboard");
     } catch (error) {
       if(axios.isAxiosError(error)){
         alert(error.response?.data.msg);

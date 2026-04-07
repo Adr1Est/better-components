@@ -1,7 +1,7 @@
 export default function ProfilePage() {
   return (
-    <main>
-      
+    <main className="w-full flex-1">
+
     </main>
   )
 }
