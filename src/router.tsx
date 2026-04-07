@@ -8,6 +8,7 @@ import ChatPage from "@/page/ChatPage";
 import NewChatPage from "@/page/NewChatPage";
 import ChatDetailPage from "@/page/ChatDetailPage";
 import NotFoundPage from "@/page/NotFoundPage";
+import ProfilePage from "@/page/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -19,13 +20,18 @@ const router = createBrowserRouter([
       {
         Component: ProtectedRoute,
         children: [
-          { path: "/chat", 
+          { 
+            path: "/chat", 
             Component: ChatPage, 
             children: [
               { index: true, Component: ChatList },
               { path: ":id", Component: ChatDetailPage },
               { path: "new", Component: NewChatPage },
-            ]},
+            ]
+          },
+          {
+            path: "/profile", Component: ProfilePage,
+          }
         ],
       },
       { path: "*", Component: NotFoundPage },
