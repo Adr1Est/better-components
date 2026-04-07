@@ -1,11 +1,14 @@
+import type { ChangeEvent } from "react";
+
 interface Props {
   label: string;
   data: string;
   disabled?: boolean;
   type?: "text" | "password" | "email";
+  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function CustomTextField({ label, data, disabled }: Props) {
+export default function CustomTextField({ label, data, disabled, type, handleChange }: Props) {
   return (
     <div className="flex flex-col gap-1 w-full bg-surface-900 p-2 rounded-xl">
       <p className="text-secondary-400 font-semibold text-sm">{label}</p>
@@ -13,7 +16,8 @@ export default function CustomTextField({ label, data, disabled }: Props) {
         className={`rounded-xl bg-surface-600 p-2 overflow-x-auto ${disabled && "bg-surface-700"}`} 
         value={data} 
         disabled={disabled}
-        type="text"
+        type={type}
+        onChange={handleChange}
       />
     </div>
   )
