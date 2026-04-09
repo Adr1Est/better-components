@@ -15,13 +15,13 @@ export default function MessageBar({ className, value, handleChange, handleClick
     <form className={`${className}`} onSubmit={(e) => e.preventDefault()}>
       <input 
         type="text" 
-        className="w-full bg-surface-700 rounded-xl p-2" 
+        className="w-full bg-surface-700 rounded-xl p-2 h-15" 
         placeholder="Crea una card para mostrar datos del tiempo..."
         value={value}
         onChange={handleChange}
       />
       <button 
-        className="absolute right-2 bottom-2 text-primary-300 hover:text-secondary-500"
+        className="absolute right-2 bottom-4 text-primary-300 hover:text-secondary-500"
         onClick={handleClick}
         disabled={isPending}
       >
