@@ -19,7 +19,7 @@ export default function ProfilePage() {
         </div>
         {
           data.user.apiKey
-            ? <CustomTextField label="API_KEY" data={data.user.apiKey} type="text" disabled />
+            ? <CustomTextField label="API_KEY" data={data.user.apiKey} type="password" disabled />
             : (
                 <Link
                   to={"/dashboard/settings"}

@@ -22,7 +22,7 @@ export default function ChatDetailPage(){
       <FullScreenLoader />
     )
   }
-  console.log(conversation)
+  
   return(
     <main className="w-full flex-1 flex flex-col md:flex-row gap-2">
       <div className="flex flex-col gap-2 w-full md:w-150 rounded-xl">
