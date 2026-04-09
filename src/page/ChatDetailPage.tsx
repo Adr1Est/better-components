@@ -26,10 +26,10 @@ export default function ChatDetailPage(){
   return(
     <main className="w-full flex-1 flex flex-col md:flex-row gap-2">
       <div className="flex flex-col gap-2 w-full md:w-150 rounded-xl">
-        <div className="sticky top-18 bg-surface-900 rounded-xl p-2">
+        <div className="sticky top-18 bg-surface-900 rounded-xl p-2 z-1">
           <h1 className="font-semibold text-xl">{ conversation.conversation.title }</h1>
         </div>
-        <div className="relative w-full flex-1 flex flex-col md:w-150 bg-surface-900 rounded-xl p-2 -z-5">
+        <div className="relative w-full flex-1 flex flex-col md:w-150 bg-surface-900 rounded-xl p-2">
           <div className="overflow-y-auto flex flex-col gap-1">
             {
               conversation.conversation.messages.map((msg: ChatMessage) => (
