@@ -1,4 +1,5 @@
 import MessageBar from "@/components/Chat/MessageBar";
+import ReactSandpack from "@/components/Chat/ReactSandpack";
 import FullScreenLoader from "@/components/shared/FullScreenLoader";
 import { useCreateMessage, useMessages } from "@/hooks/useMessages";
 import type { ChatMessage } from "@/types/conversation.type";
@@ -22,18 +23,26 @@ export default function ChatDetailPage(){
       <FullScreenLoader />
     )
   }
-  
+
+  const messages = conversation.conversation.messages;
+  const lastMessage = messages[messages.length - 1];
+
   return(
-    <main className="w-full flex-1 flex flex-col md:flex-row gap-2">
-      <div className="flex flex-col gap-2 w-full md:w-150 rounded-xl">
+    <main className="w-full flex-1 flex flex-col lg:flex-row gap-2">
+      <div className="flex flex-col gap-2 w-full lg:w-150 rounded-xl">
         <div className="sticky top-18 bg-surface-900 rounded-xl p-2 z-1">
           <h1 className="font-semibold text-xl">{ conversation.conversation.title }</h1>
         </div>
-        <div className="relative w-full flex-1 flex flex-col md:w-150 bg-surface-950 rounded-xl p-2">
+        <div className="relative w-full flex-1 flex flex-col lg:w-150 bg-surface-950 rounded-xl p-2">
           <div className="overflow-y-auto flex flex-col gap-1">
             {
               conversation.conversation.messages.map((msg: ChatMessage) => (
-                <p key={msg.id}className={`max-w-8/10 rounded-xl p-2 ${msg.role === "user" ? "self-end bg-primary-300 text-black" : "self-start bg-secondary-700"}`}>{msg.content}</p>
+                <p 
+                  key={msg.id}
+                  className={`max-w-8/10 rounded-xl p-2 ${msg.role === "user" ? "self-end bg-primary-300 text-black" : "self-start bg-secondary-700"}`}
+                >
+                  {msg.content}
+                </p>
               ))
             }
           </div>
@@ -46,8 +55,16 @@ export default function ChatDetailPage(){
           />
         </div>
       </div>
-      <div className="w-full bg-surface-900 rounded-xl">
-
+      <div className="w-full h-full lg:sticky lg:top-18 rounded-xl overflow-hidden">
+        {
+          lastMessage?.componentCode && (
+            <ReactSandpack
+              className={"rounded-xl overflow-hidden border-2 border-primary-500"}
+              componentCode={lastMessage?.componentCode}
+              dependencies={lastMessage?.dependencies}
+            />
+          )
+        }
       </div>
     </main>
   )
