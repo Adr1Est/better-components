@@ -1,12 +1,14 @@
+import { useId, useState } from "react";
+import toast from "react-hot-toast";
+import axios from "axios";
 import CustomInput from "@/components/Login/CustomInput";
 import CustomButton from "@/components/shared/CustomButton";
 import { hasEmptyFields, isValidEmail, isValidPassword } from "@/utils/validations";
 import { Sparkles } from "lucide-react";
-import { useId, useState } from "react";
 import { useNavigate } from "react-router";
 import { login } from "@/services/auth";
-import axios from "axios";
 import { useLogInInfo } from "@/store";
+import { errorToast, successToast, warnToast } from "@/utils/toasts";
 
 export default function LoginPage(){
   const [formData, setFormData] = useState({
@@ -21,26 +23,26 @@ export default function LoginPage(){
 
   const handleClick = async () => {
     if(hasEmptyFields(formData)){
-      return alert("Rellena todos los campos");
+      return toast("Rellena todos los campos", warnToast);
     }
 
     if(!isValidEmail(formData.email)){
-      return alert("El email no es válido");
+      return toast("El email no es válido", warnToast);
     }
 
     if(!isValidPassword(formData.password)){
-      return alert("La contraseña debe tener al menos 6 caracteres");
+      return toast("La contraseña debe tener al menos 6 caracteres", warnToast);
     }
 
     try {
       const data = await login({ email: formData.email, password: formData.password });
       setAccessToken(data.accessToken);
       setUserId(data.id);
-      console.log(data.msg);
+      toast.success(data.msg, successToast);
       navigate("/dashboard");
     } catch (error) {
       if(axios.isAxiosError(error)){
-        alert(error.response?.data.msg);
+        toast.error(error.response?.data.msg, errorToast);
       }
     }
   }

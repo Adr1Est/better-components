@@ -3,7 +3,9 @@ import ReactSandpack from "@/components/Chat/ReactSandpack";
 import FullScreenLoader from "@/components/shared/FullScreenLoader";
 import { useCreateMessage, useMessages } from "@/hooks/useMessages";
 import type { ChatMessage } from "@/types/conversation.type";
+import { errorToast, warnToast } from "@/utils/toasts";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useParams } from "react-router"
 
 export default function ChatDetailPage(){
@@ -13,8 +15,26 @@ export default function ChatDetailPage(){
   const [inputData, setInputData] = useState("");
 
   const handleClick = () => {
-    console.log(inputData);
-    createMessage({ conversationId: id!, content: inputData});
+    if(!inputData){
+      toast("Escribe un mensaje", warnToast);
+      return;
+    }
+    
+    createMessage({ conversationId: id!, content: inputData}, {
+      onError: (error: any) => {
+        const status = error?.response?.status ?? error?.status;
+
+        const errorMessages: Record<number, string> = {
+          400: "La clave API no es válida",
+          401: "La clave API no es válida",
+          429: "Has superado el límite de peticiones. Espera un momento.",
+          503: "El LLM está experimentando alta demanda. Inténtalo de nuevo más tarde.",
+        };
+
+        const msg = errorMessages[status] ?? "Error inesperado al generar el mensaje.";
+        toast.error(msg, errorToast);
+      },
+    });
     setInputData("");
   }
 

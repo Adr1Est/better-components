@@ -1,6 +1,8 @@
 import { useDeleteChat } from "@/hooks/useConversation";
+import { successToast } from "@/utils/toasts";
 import { X, Trash } from "lucide-react";
 import type { RefObject } from "react";
+import toast from "react-hot-toast";
 
 interface Props {
   ref: RefObject<HTMLDialogElement | null>;
@@ -14,6 +16,7 @@ export default function DeleteChatModal({ ref, title, chatId }: Props) {
   const handleDelete = () => {
     deleteChat(chatId);
     ref.current?.close();
+    toast.success(`${title}, borrado`, successToast);
   }
 
   return(

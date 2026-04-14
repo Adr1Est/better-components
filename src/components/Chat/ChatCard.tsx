@@ -6,6 +6,8 @@ import { useId, useRef, useState, type ChangeEvent, type MouseEvent } from "reac
 import CustomInput from "@/components/Login/CustomInput";
 import { stopPropagation } from "@/utils/stopPropagation";
 import { useChangeChatTitle } from "@/hooks/useConversation";
+import toast from "react-hot-toast";
+import { successToast } from "@/utils/toasts";
 
 interface Props {
   id: string;
@@ -32,6 +34,7 @@ export default function ChatCard({ id, title, createdAt }: Props) {
 
     if(newTitle && newTitle !== title){
       changeTitle({ chatId: id, title: newTitle });
+      toast.success("Título cambiado con éxito", successToast);
     }
     
     setIsEditable(false);

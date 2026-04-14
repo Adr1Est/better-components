@@ -2,7 +2,9 @@ import CustomInput from "@/components/Login/CustomInput";
 import CustomButton from "@/components/shared/CustomButton";
 import { useCreateChat } from "@/hooks/useConversation";
 import { useLogInInfo } from "@/store";
+import { successToast, warnToast } from "@/utils/toasts";
 import { useId, useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
 export default function NewChatPage() {
@@ -14,8 +16,12 @@ export default function NewChatPage() {
   const { mutate: createChat } = useCreateChat();
 
   const handleClick = () => {
-    if(!title || !userId) return;
+    if(!title || !userId){
+        toast("Escribe un título para iniciar conversación", warnToast);
+        return
+      };
     createChat({userId, title});
+    toast.success(`${title}, creado`, successToast);
     setTitle("");
     navigate("/dashboard");
   }

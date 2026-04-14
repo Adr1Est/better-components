@@ -3,8 +3,10 @@ import FullScreenLoader from "@/components/shared/FullScreenLoader";
 import MiniLoader from "@/components/shared/MiniLoader";
 import { useSaveApiKey, useUserInfo } from "@/hooks/useUserInfo";
 import { useLogInInfo } from "@/store";
+import { successToast, warnToast } from "@/utils/toasts";
 import { Eye, EyeClosed, Pencil, Trash } from "lucide-react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function SettingsPage() {
   const [togglePassword, setTogglePassword] = useState<"password" | "text">("password");
@@ -27,9 +29,11 @@ export default function SettingsPage() {
     }
     if (formValue === undefined || formValue === apiKey) {
       setIsDisabled(true);
+      toast("La clave API no se ha modificado", warnToast);
       return;
     }
     saveApiKey({id: userId, apiKey: formValue!});
+    toast.success("Clave API modificada con éxito", successToast);
     setIsDisabled(true);
     setFormValue(undefined);
   }
@@ -38,6 +42,7 @@ export default function SettingsPage() {
     if(!apiKey) return;
 
     saveApiKey({ id: userId, apiKey: "" });
+    toast.success("Clave API borrada", successToast);
     setFormValue(undefined);
     setIsDisabled(true);
   }
