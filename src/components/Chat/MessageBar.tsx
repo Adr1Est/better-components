@@ -1,6 +1,10 @@
-import { SendHorizonal } from "lucide-react";
+import { SendHorizonal, TriangleAlert } from "lucide-react";
 import { type ChangeEvent } from "react";
 import MiniLoader from "@/components/shared/MiniLoader";
+import { useUserInfo } from "@/hooks/useUserInfo";
+import { useLogInInfo } from "@/store";
+import toast from "react-hot-toast";
+import { warnToast } from "@/utils/toasts";
 
 interface Props {
   className: string;
@@ -11,6 +15,9 @@ interface Props {
 }
 
 export default function MessageBar({ className, value, handleChange, handleClick, isPending }: Props) {
+  const userId = useLogInInfo((state) => state.userId);
+  const { data, isLoading, isError } = useUserInfo(userId);
+
   return (
     <form className={`${className}`} onSubmit={(e) => e.preventDefault()}>
       <input 
@@ -20,12 +27,26 @@ export default function MessageBar({ className, value, handleChange, handleClick
         value={value}
         onChange={handleChange}
       />
+      {
+        !data.user.apiKey && (
+          <button 
+            className="absolute right-10 bottom-4" 
+            title="Falta la clave API de Gemini"
+            onClick={() => toast("Define una clave API de Gemini válida", warnToast)}
+          >
+            <TriangleAlert className="text-amber-400" strokeWidth={3} size={30}/>
+          </button>
+        ) 
+      }
       <button 
-        className="absolute right-2 bottom-4 text-primary-300 hover:text-secondary-500"
+        className={`
+          absolute right-2 bottom-4 
+          ${data.user.apiKey ? "text-primary-300 hover:text-secondary-500" : "text-primary-300/50"}
+        `}
         onClick={handleClick}
-        disabled={isPending}
+        disabled={isPending || !data.user.apiKey}
       >
-        {isPending ? <MiniLoader /> : <SendHorizonal  />}
+        { isPending || isLoading || isError ? <MiniLoader /> : <SendHorizonal  /> }
       </button>
     </form>
   )
