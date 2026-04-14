@@ -8,7 +8,7 @@ import { Sparkles } from "lucide-react";
 import { useNavigate } from "react-router";
 import { login } from "@/services/auth";
 import { useLogInInfo } from "@/store";
-import { errorToast, successToast } from "@/utils/toasts";
+import { errorToast, successToast, warnToast } from "@/utils/toasts";
 
 export default function LoginPage(){
   const [formData, setFormData] = useState({
@@ -23,15 +23,15 @@ export default function LoginPage(){
 
   const handleClick = async () => {
     if(hasEmptyFields(formData)){
-      return toast.error("Rellena todos los campos", errorToast);
+      return toast("Rellena todos los campos", warnToast);
     }
 
     if(!isValidEmail(formData.email)){
-      return toast.error("El email no es válido", errorToast);
+      return toast("El email no es válido", warnToast);
     }
 
     if(!isValidPassword(formData.password)){
-      return toast.error("La contraseña debe tener al menos 6 caracteres", errorToast);
+      return toast("La contraseña debe tener al menos 6 caracteres", warnToast);
     }
 
     try {

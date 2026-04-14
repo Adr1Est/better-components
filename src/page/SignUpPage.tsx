@@ -8,6 +8,8 @@ import { useNavigate } from "react-router";
 import { hasEmptyFields, isValidEmail, isValidPassword, isValidUsername } from "@/utils/validations";
 import { signup } from "@/services/auth";
 import axios from "axios";
+import toast from "react-hot-toast";
+import { errorToast, successToast, warnToast } from "@/utils/toasts";
 
 export default function SignUpPage(){
   const [formData, setFormData] = useState({
@@ -23,28 +25,28 @@ export default function SignUpPage(){
 
   const handleClick = async () => {
     if(hasEmptyFields(formData)){
-      return alert("Rellena todos los campos");
+      return toast("Rellena todos los campos", warnToast);
     }
 
     if(!isValidEmail(formData.email)){
-      return alert("El email no es válido");
+      return toast("El email no es válido", warnToast);
     }
 
     if(!isValidUsername(formData.username)){
-      return alert("El nombre de usuario debe tener al menos 3 caracteres");
+      return toast("El nombre de usuario debe tener al menos 3 caracteres", warnToast);
     }
 
     if(!isValidPassword(formData.password)){
-      return alert("La contraseña debe tener al menos 6 caracteres");
+      return toast("La contraseña debe tener al menos 6 caracteres", warnToast);
     }
     
     try {
       const data = await signup({ email: formData.email, password: formData.password, username: formData.username });
-      alert(data.msg);
+      toast.success(data.msg, successToast);
       navigate("/");
     } catch (error) {
       if(axios.isAxiosError(error)){
-        alert(error.response?.data.msg);
+        toast.error(error.response?.data.msg, errorToast);
       }
     }
     
