@@ -3,7 +3,7 @@ import geminiLogo from "/gemini-color.svg";
 
 export default function ApiKeyWarn() {
   return (
-    <div className="w-full h-100 bg-rose-700/50 flex flex-col items-center justify-center gap-3 rounded-xl p-2">
+    <div className="w-full md:w-9/10 h-100 bg-rose-700/50 flex flex-col items-center justify-center gap-3 rounded-xl p-2">
       <h2 className="font-bold text-sm md:text-2xl text-rose-100">Debes definir un clave API de Gemini válida</h2>
       <Link
         to="https://aistudio.google.com/apikey?hl=es-419"
