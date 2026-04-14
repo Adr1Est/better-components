@@ -5,12 +5,15 @@ import { Plus } from "lucide-react";
 import { Link } from "react-router";
 import FullScreenLoader from "@/components/shared/FullScreenLoader";
 import type { Chat } from "@/types/conversation.type";
+import { useUserInfo } from "@/hooks/useUserInfo";
+import ApiKeyWarn from "@/components/Chat/ApiKeyWarn";
 
 export default function ChatList() {
   const userId = useLogInInfo((state) => state.userId);
-  const { data: chatList, isLoading } = useChats(userId);
+  const { data: chatList, isLoading, isError } = useChats(userId);
+  const { data: info, isLoading: isUserLoading, isError: isUserError } = useUserInfo(userId);
 
-  if(isLoading){
+  if(isLoading || isUserLoading || isError || isUserError){
     return (
       <FullScreenLoader />
     )
@@ -37,6 +40,7 @@ export default function ChatList() {
           />
         ))
       }
+      { !info.user.apiKey && <ApiKeyWarn /> }
     </main>
   )
 }
