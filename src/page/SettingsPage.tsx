@@ -1,12 +1,13 @@
 import CustomTextField from "@/components/shared/CustomTextField";
 import FullScreenLoader from "@/components/shared/FullScreenLoader";
 import MiniLoader from "@/components/shared/MiniLoader";
-import { useSaveApiKey, useUserInfo } from "@/hooks/useUserInfo";
+import { useDeleteUser, useSaveApiKey, useUserInfo } from "@/hooks/useUserInfo";
 import { useLogInInfo } from "@/store";
 import { successToast, warnToast } from "@/utils/toasts";
 import { Eye, EyeClosed, Pencil, Trash } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 export default function SettingsPage() {
   const [togglePassword, setTogglePassword] = useState<"password" | "text">("password");
@@ -16,6 +17,9 @@ export default function SettingsPage() {
   const { mutate: saveApiKey, isPending } = useSaveApiKey();
   const [formValue, setFormValue] = useState<string  | undefined>(undefined);
   const [isDeleteAccountClicked, setIsDeleteAccountClicked] = useState(false);
+  const { mutate: deleteUser, isPending: isDeleteUserPending } = useDeleteUser();
+
+  const navigate = useNavigate();
 
   if(isLoading || isError) return <FullScreenLoader />;
 
@@ -50,8 +54,9 @@ export default function SettingsPage() {
 
   const handleDeleteUser = () => {
     if(!isDeleteAccountClicked) return setIsDeleteAccountClicked(true);
-    console.log(isDeleteAccountClicked, "<---------");
+    deleteUser();
     setIsDeleteAccountClicked(false);
+    navigate("/");
   }
 
   return (
@@ -96,9 +101,15 @@ export default function SettingsPage() {
             }`}
           onClick={handleDeleteUser}
         >
-          <span className="inline-block group-hover:scale-110 font-semibold transition-transform duration-300">
-            {isDeleteAccountClicked ? "Esto también borrará los chats ¿Estás seguro?" : "Eliminar cuenta de la base de datos"}
-          </span>
+          {
+            isDeleteUserPending
+              ? <MiniLoader />
+              : (
+                  <span className="inline-block group-hover:scale-110 font-semibold transition-transform duration-300">
+                    {isDeleteAccountClicked ? "Esto también borrará los chats ¿Estás seguro?" : "Eliminar cuenta de la base de datos"}
+                  </span>
+                )
+          }
       </button>
     </main>
   )
