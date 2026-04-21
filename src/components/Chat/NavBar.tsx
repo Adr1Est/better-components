@@ -55,7 +55,7 @@ export default function NavBar() {
           ? <MiniLoader /> 
           : isError
             ? <TriangleAlert className="hidden md:block" />
-            : <p className="hidden md:block">Bienvenido <CustomText text={user?.user.username}/>!</p>
+            : <p className="hidden md:block">Bienvenido <CustomText text={user?.user?.username}/>!</p>
         }
         
         {
