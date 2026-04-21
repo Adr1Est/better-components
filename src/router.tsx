@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import App from "@/App";
+import PublicRoute from "@/components/shared/PublicRoute";
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import ChatList from "@/components/Chat/ChatList";
 import LoginPage from "@/page/LoginPage";
@@ -16,8 +17,13 @@ const router = createBrowserRouter([
     path: "/",
     Component: App,
     children: [
-      { index: true, Component: LoginPage },
-      { path: "signup", Component: SignUpPage },
+      {
+        Component: PublicRoute,
+        children: [
+          { index: true, Component: LoginPage },
+          { path: "signup", Component: SignUpPage },
+        ]
+      },
       {
         Component: ProtectedRoute,
         children: [
