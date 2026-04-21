@@ -15,6 +15,7 @@ export default function SettingsPage() {
   const { data, isLoading, isError } = useUserInfo(userId);
   const { mutate: saveApiKey, isPending } = useSaveApiKey();
   const [formValue, setFormValue] = useState<string  | undefined>(undefined);
+  const [isDeleteAccountClicked, setIsDeleteAccountClicked] = useState(false);
 
   if(isLoading || isError) return <FullScreenLoader />;
 
@@ -47,8 +48,14 @@ export default function SettingsPage() {
     setIsDisabled(true);
   }
 
+  const handleDeleteUser = () => {
+    if(!isDeleteAccountClicked) return setIsDeleteAccountClicked(true);
+    console.log(isDeleteAccountClicked, "<---------");
+    setIsDeleteAccountClicked(false);
+  }
+
   return (
-    <main className="w-full flex-1 flex justify-center items-start">
+    <main className="w-full flex-1 flex flex-col justify-start items-center gap-3">
       <div className="relative w-full md:w-1/2">
         <CustomTextField 
           label="API_KEY" 
@@ -81,8 +88,18 @@ export default function SettingsPage() {
             <Trash />
           </button>
         </div>
-        
       </div>
+      <button
+          className={`group relative w-full md:w-1/2 p-4 rounded-xl ${
+            isDeleteAccountClicked
+              ? "bg-red-700 active:text-red-950" : "bg-red-800 hover:bg-red-700 active:text-red-950"
+            }`}
+          onClick={handleDeleteUser}
+        >
+          <span className="inline-block group-hover:scale-110 font-semibold transition-transform duration-300">
+            {isDeleteAccountClicked ? "Esto también borrará los chats ¿Estás seguro?" : "Eliminar cuenta de la base de datos"}
+          </span>
+      </button>
     </main>
   )
 }
