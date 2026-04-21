@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 import { login } from "@/services/auth";
 import { useLogInInfo } from "@/store";
 import { errorToast, successToast, warnToast } from "@/utils/toasts";
+import MiniLoader from "@/components/shared/MiniLoader";
 
 export default function LoginPage(){
   const [formData, setFormData] = useState({
@@ -20,6 +21,7 @@ export default function LoginPage(){
   const navigate = useNavigate();
   const setAccessToken = useLogInInfo((state) => state.setAccessToken);
   const setUserId = useLogInInfo((state) => state.setUserId);
+  const [isLogin, setIsLogin] = useState(false);
 
   const handleClick = async () => {
     if(hasEmptyFields(formData)){
@@ -35,6 +37,7 @@ export default function LoginPage(){
     }
 
     try {
+      setIsLogin(true);
       const data = await login({ email: formData.email, password: formData.password });
       setAccessToken(data.accessToken);
       setUserId(data.id);
@@ -42,8 +45,10 @@ export default function LoginPage(){
       navigate("/dashboard");
     } catch (error) {
       if(axios.isAxiosError(error)){
-        toast.error(error.response?.data.msg, errorToast);
+        toast.error(error.response?.data.msg || "El servidor no responde", errorToast);
       }
+    } finally {
+      setIsLogin(false);
     }
   }
 
@@ -56,22 +61,31 @@ export default function LoginPage(){
       
       <div className="bg-surface-900 w-110 rounded-xl p-8">
         <form className="flex flex-col gap-5" onSubmit={e => e.preventDefault()}>
-          <CustomInput 
-            label="EMAIL" 
-            type="email" 
-            id={emailInputId} 
-            placeholder="johndoe@email.com"
-            value={formData.email}
-            handleChange={(e) => setFormData(f => ({ ...f, email: e.target.value }))}
-          />
-          <CustomInput 
-            label="CONTRASEÑA" 
-            type="password" 
-            id={passwordInputId} 
-            placeholder="***********"
-            value={formData.password}
-            handleChange={(e) => setFormData(f => ({ ...f, password: e.target.value }))}
-          />
+          {
+            isLogin 
+              ? <MiniLoader />
+              : (
+                  <>
+                    <CustomInput 
+                      label="EMAIL" 
+                      type="email" 
+                      id={emailInputId} 
+                      placeholder="johndoe@email.com"
+                      value={formData.email}
+                      handleChange={(e) => setFormData(f => ({ ...f, email: e.target.value }))}
+                    />
+                    <CustomInput 
+                      label="CONTRASEÑA" 
+                      type="password" 
+                      id={passwordInputId} 
+                      placeholder="***********"
+                      value={formData.password}
+                      handleChange={(e) => setFormData(f => ({ ...f, password: e.target.value }))}
+                    />
+                  </>
+                )
+          }
+          
 
           <CustomButton 
             text="INICIAR_SESIÓN"
