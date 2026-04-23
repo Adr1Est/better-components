@@ -67,7 +67,7 @@ export default function ChatDetailPage(){
             }
           </div>
           <MessageBar 
-            className="sticky bottom-0 right-0 w-full"
+            className="sticky bottom-0 right-0 w-full flex flex-row"
             value={inputData}
             handleChange={(e) => setInputData(e.target.value)} 
             handleClick={handleClick}
