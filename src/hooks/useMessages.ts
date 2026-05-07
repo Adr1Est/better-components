@@ -13,7 +13,7 @@ export const useCreateMessage = (conversationId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ conversationId, content }: { conversationId: string; content: string }) => createMessage(conversationId, content),
+    mutationFn: ({ conversationId, content, model }: { conversationId: string; content: string, model: string }) => createMessage(conversationId, content, model),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["conversation", conversationId] });
     },

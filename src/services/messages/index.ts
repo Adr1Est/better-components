@@ -5,7 +5,7 @@ export const getMessages = async (id: string) => {
   return response.data;
 }
 
-export const createMessage = async (id: string, content: string) => {
-  const response = await api.post(`/message/${id}`, { content });
+export const createMessage = async (id: string, content: string, model: string) => {
+  const response = await api.post(`/message/${id}`, { content, model });
   return response.data;
 }

@@ -13,14 +13,19 @@ export default function ChatDetailPage(){
   const { data: conversation, isLoading, isError } = useMessages(id!);
   const { mutate: createMessage, isPending } = useCreateMessage(id!);
   const [inputData, setInputData] = useState("");
+  const [model, setModel] = useState("gemini-3.1-flash-lite-preview");
 
   const handleClick = () => {
     if(!inputData){
       toast("Escribe un mensaje", warnToast);
       return;
     }
+    if(!model){
+      toast("Selecciona un LLM", warnToast);
+      return;
+    }
     
-    createMessage({ conversationId: id!, content: inputData}, {
+    createMessage({ conversationId: id!, content: inputData, model}, {
       onError: (error: any) => {
         const status = error?.response?.status ?? error?.status;
 
@@ -67,10 +72,12 @@ export default function ChatDetailPage(){
             }
           </div>
           <MessageBar 
-            className="sticky bottom-0 right-0 w-full flex flex-row"
+            className="sticky bottom-0 right-0 w-full flex flex-col gap-1"
             value={inputData}
             handleChange={(e) => setInputData(e.target.value)} 
             handleClick={handleClick}
+            model={model}
+            handleModelChange={(e) => setModel(e.target.value)}
             isPending={isPending}
           />
         </div>
