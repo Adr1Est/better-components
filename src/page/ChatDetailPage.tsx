@@ -1,4 +1,4 @@
-import AiMessage from "@/components/Chat/AIMessage";
+import AiMessage from "@/components/Chat/AiMessage";
 import MessageBar from "@/components/Chat/MessageBar";
 import ReactSandpack from "@/components/Chat/ReactSandpack";
 import UserMessage from "@/components/Chat/UserMessage";
@@ -68,12 +68,14 @@ export default function ChatDetailPage(){
                   ? (
                       <UserMessage 
                         key={msg.id}
+                        id={msg.id}
                         message={msg.content}
                       />
                     )
                   : (
                       <AiMessage 
                         key={msg.id}
+                        id={msg.id}
                         message={msg.content}
                       />
                     )
