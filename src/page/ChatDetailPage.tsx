@@ -1,5 +1,7 @@
+import AiMessage from "@/components/Chat/AIMessage";
 import MessageBar from "@/components/Chat/MessageBar";
 import ReactSandpack from "@/components/Chat/ReactSandpack";
+import UserMessage from "@/components/Chat/UserMessage";
 import FullScreenLoader from "@/components/shared/FullScreenLoader";
 import { useCreateMessage, useMessages } from "@/hooks/useMessages";
 import type { ChatMessage } from "@/types/conversation.type";
@@ -61,14 +63,19 @@ export default function ChatDetailPage(){
         <div className="relative w-full flex-1 flex flex-col lg:w-150 bg-surface-950 rounded-xl p-2">
           <div className="overflow-y-auto flex flex-col gap-1">
             {
-              conversation.conversation.messages.map((msg: ChatMessage) => (
-                <p 
-                  key={msg.id}
-                  className={`max-w-8/10 rounded-xl p-2 ${msg.role === "user" ? "self-end bg-primary-300 text-black" : "self-start bg-secondary-700"}`}
-                >
-                  {msg.content}
-                </p>
-              ))
+              conversation.conversation.messages.map((msg: ChatMessage) => {
+                return msg.role === "user"
+                  ? (
+                      <UserMessage 
+                        message={msg.content}
+                      />
+                    )
+                  : (
+                      <AiMessage 
+                        message={msg.content}
+                      />
+                    )
+              })
             }
           </div>
           <MessageBar 
