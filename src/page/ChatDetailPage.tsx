@@ -69,6 +69,7 @@ export default function ChatDetailPage(){
                       <UserMessage 
                         key={msg.id}
                         id={msg.id}
+                        conversationId={id!}
                         message={msg.content}
                       />
                     )
@@ -76,6 +77,7 @@ export default function ChatDetailPage(){
                       <AiMessage 
                         key={msg.id}
                         id={msg.id}
+                        conversationId={id!}
                         message={msg.content}
                       />
                     )

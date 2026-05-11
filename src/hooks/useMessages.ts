@@ -26,7 +26,7 @@ export const useDeleteMessage = (conversationId: string) => {
   return useMutation({
     mutationFn: ({ messageId }: { messageId: string }) => deleteMessage(messageId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["conversation", conversationId]});
+      queryClient.invalidateQueries({ queryKey: ["conversation", conversationId] });
     }
-  })
+  });
 }
