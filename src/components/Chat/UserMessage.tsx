@@ -4,10 +4,11 @@ import { useRef } from "react";
 
 interface Props {
   id: string;
+  conversationId: string;
   message: string;
 }
 
-export default function UserMessage({ id, message }: Props) {
+export default function UserMessage({ id, conversationId, message }: Props) {
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const handleModal = () => {
@@ -32,6 +33,7 @@ export default function UserMessage({ id, message }: Props) {
       <DeleteMessageModal 
         ref={modalRef}
         content={message}
+        conversationId={conversationId}
         messageId={id}
       />
     </>

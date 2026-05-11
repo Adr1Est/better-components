@@ -1,3 +1,4 @@
+import { useDeleteMessage } from "@/hooks/useMessages";
 import { successToast } from "@/utils/toasts";
 import { X, Trash } from "lucide-react";
 import type { RefObject } from "react";
@@ -6,12 +7,15 @@ import toast from "react-hot-toast";
 interface Props {
   ref: RefObject<HTMLDialogElement | null>;
   content: string;
+  conversationId: string;
   messageId: string;
 }
 
-export default function DeleteMessageModal({ ref, content, messageId }: Props) {
-  
+export default function DeleteMessageModal({ ref, content, conversationId, messageId }: Props) {
+  const { mutate: deleteChat } = useDeleteMessage(conversationId);
+
   const handleDelete = () => {
+    deleteChat({ messageId });
     ref.current?.close();
     toast.success(`Mensaje borrado`, successToast);
   }
