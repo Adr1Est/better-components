@@ -67,11 +67,13 @@ export default function ChatDetailPage(){
                 return msg.role === "user"
                   ? (
                       <UserMessage 
+                        key={msg.id}
                         message={msg.content}
                       />
                     )
                   : (
                       <AiMessage 
+                        key={msg.id}
                         message={msg.content}
                       />
                     )
