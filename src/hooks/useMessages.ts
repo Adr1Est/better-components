@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { createMessage, getMessages } from "@/services/messages";
+import { createMessage, deleteMessage, getMessages } from "@/services/messages";
 
 export const useMessages = (conversationId: string) => {
   return useQuery({
@@ -18,4 +18,15 @@ export const useCreateMessage = (conversationId: string) => {
       queryClient.invalidateQueries({ queryKey: ["conversation", conversationId] });
     },
   });
+}
+
+export const useDeleteMessage = (conversationId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ messageId }: { messageId: string }) => deleteMessage(messageId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["conversation", conversationId]});
+    }
+  })
 }
