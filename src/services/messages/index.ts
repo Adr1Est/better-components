@@ -9,3 +9,8 @@ export const createMessage = async (id: string, content: string, model: string) 
   const response = await api.post(`/message/${id}`, { content, model });
   return response.data;
 }
+
+export const deleteMessage = async (id: string) => {
+  const response = await api.delete(`/message/${id}`);
+  return response.data;
+}
