@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { ChevronRight, ChevronLeft, X, Check } from 'lucide-react';
+import { ChevronRight, ChevronLeft, X } from 'lucide-react';
 import { steps } from '@/utils/modalSteps';
+import { useUserPreferences } from '@/store';
 
 export default function OnboardingModal() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [dontShowAgain, setDontShowAgain] = useState(false);
   const [isMounted, setIsMounted] = useState(true);
+  const [dontShowAgain, setDontShowAgain] = useState(false);
+  const setHasSeenOnboarding = useUserPreferences((state) => state.setHasSeenOnboarding);
 
   const handleClose = () => {
     setIsMounted(false);
@@ -15,6 +17,7 @@ export default function OnboardingModal() {
     if (currentStep < steps.length - 1) {
       setCurrentStep(prev => prev + 1);
     } else {
+      setHasSeenOnboarding(dontShowAgain);
       handleClose();
     }
   };
@@ -66,15 +69,17 @@ export default function OnboardingModal() {
 
           {/* Checkbox (Only on last step) */}
           {currentStep === steps.length - 1 && (
-            <div 
-              className="mt-auto mb-8 flex items-center gap-3 cursor-pointer select-none group transition-opacity duration-300"
-              onClick={() => setDontShowAgain(!dontShowAgain)}
-            >
-              <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${dontShowAgain ? `${step.color} border-transparent` : 'border-slate-300 group-hover:border-slate-200'}`}>
-                {dontShowAgain && <Check size={14} className="text-white" strokeWidth={4} />}
-              </div>
-              <span className="text-sm font-medium text-slate-300 group-hover:text-slate-200">No volver a mostrar este mensaje</span>
-            </div>
+            <label className="mt-auto mb-8 flex items-center gap-3 cursor-pointer select-none group transition-opacity duration-300">
+              <input
+                type="checkbox"
+                checked={dontShowAgain}
+                onChange={(e) => setDontShowAgain(e.target.checked)}
+                className="w-4 h-4 accent-tertiary-300 cursor-pointer"
+              />
+              <span className="text-sm font-medium text-slate-300 group-hover:text-slate-200">
+                No volver a mostrar este mensaje
+              </span>
+            </label>
           )}
         </div>
 
