@@ -9,7 +9,7 @@ interface UserPreferencesStore {
 export const useUserPreferences = create<UserPreferencesStore>()(
   persist(
     (set) => ({
-      hasSeenOnboarding: true,
+      hasSeenOnboarding: false,
       setHasSeenOnboarding: (value: boolean) => set(() => ({ hasSeenOnboarding: value })),
     }),
     { name: "user-prefs"}
